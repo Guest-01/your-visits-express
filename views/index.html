@@ -3,8 +3,8 @@
 {% block content %}
 <a href=#>로그인</a>
 <a href=#>회원가입</a>
-<h2>당신은 이 웹사이트에... #번 방문하였습니다.</h2>
-<p>현재 아이피: #</p>
+<h2>당신은 이 웹사이트에... {{ ip.count }}번 방문하였습니다.</h2>
+<p>현재 아이피: {{ ip.ip }}</p>
 <footer>
     Developed with Node.js - Express framework @2021
 </footer>

@@ -4,6 +4,7 @@ const express = require('express');
 const morgan = require('morgan');
 const session = require('express-session');
 const nunjucks = require('nunjucks');
+const { sequelize } = require('./models');
 
 const indexRouter = require('./routes');
 
@@ -12,10 +13,20 @@ const app = express();
 app.set('port', process.env.PORT || 3000);
 app.set('view engine', 'html');
 
+// template engine
 nunjucks.configure('views', {
   express: app,
   watch: true,
 })
+
+// DB
+sequelize.sync()
+  .then(() => {
+    console.log('데이터베이스 연결 성공');
+  })
+  .catch((err) => {
+    console.error(err);
+  })
 
 // middlewares
 app.use(morgan('dev')); // For logging
