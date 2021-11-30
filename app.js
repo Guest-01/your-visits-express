@@ -20,7 +20,7 @@ nunjucks.configure('views', {
 })
 
 // DB
-sequelize.sync()
+sequelize.sync({ alter: true })
   .then(() => {
     console.log('데이터베이스 연결 성공');
   })
@@ -49,5 +49,6 @@ app.use(session({
 app.use('/', indexRouter);
 
 app.listen(app.get('port'), () => {
-  console.log(app.get('port'), '번 포트에서 대기중...');
+  const PORT = app.get('port')
+  console.log(`${PORT}번 포트에서 대기중... http://localhost:${PORT}`);
 });

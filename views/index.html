@@ -1,8 +1,11 @@
 {% extends 'layout.html' %}
 
 {% block content %}
+<div class="container">
+    {{ session }}
+</div>
 <a href=#>로그인</a>
-<a href=#>회원가입</a>
+<a href="/signup">회원가입</a>
 <h2>당신은 이 웹사이트에... {{ ip.count }}번 방문하였습니다.</h2>
 <p>현재 아이피: {{ ip.ip }}</p>
 <footer>
