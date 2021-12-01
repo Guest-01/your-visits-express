@@ -1,13 +1,22 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<div class="container">
-    {{ session }}
-</div>
-<a href=#>로그인</a>
+{% if userInfo %}
+<a href="/logout">{{ userInfo.username }} 로그아웃</a>
+<h2>{{ userInfo.username }}님은 이 웹사이트에... {{ userInfo.totalCount }}번 방문하였습니다.</h2>
+<p>현재 아이피: {{ ip.ip }}</p>
+<p>과거 모든 아이피:</p>
+<ul>
+    {% for ip in userInfo.ips %}
+    <li>{{ ip }}</li>
+    {% endfor %}
+</ul>
+{% else %}
+<a href="/login">로그인</a>
 <a href="/signup">회원가입</a>
 <h2>당신은 이 웹사이트에... {{ ip.count }}번 방문하였습니다.</h2>
 <p>현재 아이피: {{ ip.ip }}</p>
+{% endif %}
 <footer>
     Developed with Node.js - Express framework @2021
 </footer>

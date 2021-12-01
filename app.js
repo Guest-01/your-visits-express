@@ -3,6 +3,7 @@ const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
 const session = require('express-session');
+const flash = require('connect-flash');
 const nunjucks = require('nunjucks');
 const { sequelize } = require('./models');
 
@@ -26,7 +27,7 @@ sequelize.sync({ alter: true })
   })
   .catch((err) => {
     console.error(err);
-  })
+  });
 
 // middlewares
 app.use(morgan('dev')); // For logging
@@ -40,10 +41,11 @@ app.use(session({
   secret: 'dev',  // usually set it with dotenv for security
   cookie: {
     httpOnly: true,
-    secure: false  // true only works with https
-  },
-  name: 'session-cookie' // default: connect.sid
+    secure: false,  // true only works with https
+    maxAge: 1000 * 60 * 60
+  }
 }))
+app.use(flash());
 
 // routes
 app.use('/', indexRouter);
